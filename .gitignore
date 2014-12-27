@@ -41,6 +41,7 @@ dlldata.c
 *.meta
 *.obj
 *.pch
+*.gch
 *.pdb
 *.pgc
 *.pgd

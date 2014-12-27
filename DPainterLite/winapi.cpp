@@ -3,7 +3,7 @@
 BOOL get_open_filename(char filename[], const char * filetype, char filetitle[]) {
 	OPENFILENAMEA ofn; // 参见 http://msdn.microsoft.com/en-us/library/windows/desktop/ms646839(v=vs.85).aspx
 	char FileFilter[100] = "";
-	sprintf_s(FileFilter, "图像文件 (*.%s)%c*.%s%c所有文件 (*.*)%c*.*%c", filetype, '\0', filetype, '\0', '\0');
+	sprintf(FileFilter, "图像文件 (*.%s)%c*.%s%c所有文件 (*.*)%c*.*%c", filetype, '\0', filetype, '\0', '\0');
 	ZeroMemory(&ofn, sizeof ofn);
 	ofn.lStructSize = sizeof ofn;
 	ofn.hwndOwner = GetConsoleWindow();
@@ -24,7 +24,7 @@ BOOL get_open_filename(char filename[], const char * filetype, char filetitle[])
 BOOL get_save_filename(char filename[], const char * filetype) {
 	OPENFILENAMEA ofn; // 参见 http://msdn.microsoft.com/en-us/library/windows/desktop/ms646839(v=vs.85).aspx
 	char FileFilter[100] = "";
-	sprintf_s(FileFilter, "图像文件 (*.%s)%c*.%s%c所有文件 (*.*)%c*.*%c", filetype, '\0', filetype, '\0', '\0');
+	sprintf(FileFilter, "图像文件 (*.%s)%c*.%s%c所有文件 (*.*)%c*.*%c", filetype, '\0', filetype, '\0', '\0');
 	ZeroMemory(&ofn, sizeof ofn);
 	ofn.lStructSize = sizeof ofn;
 	ofn.hwndOwner = GetConsoleWindow();
@@ -34,7 +34,7 @@ BOOL get_save_filename(char filename[], const char * filetype) {
 	ofn.nMaxFile = 256;
 	ofn.lpstrFilter = FileFilter;
 	ofn.nFilterIndex = 1;
-	ofn.lpstrFileTitle = "选择文件";
+	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
 	ofn.lpstrInitialDir = NULL;
 	ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
