@@ -42,10 +42,10 @@
     <NuGetPackageImportStamp>7eee1395</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>\\vmware-host\Shared Folders\文稿\Visual Studio 2013\Projects\DPainterLite\external\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\external\rapidjson\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>\\vmware-host\Shared Folders\文稿\Visual Studio 2013\Projects\DPainterLite\external\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\external\rapidjson\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
