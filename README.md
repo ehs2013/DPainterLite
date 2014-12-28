@@ -1,4 +1,4 @@
-# DPainter Lite
+# DPainter Lite [![Build status](https://ci.appveyor.com/api/projects/status/kdek110angc36ap1?svg=true)](https://ci.appveyor.com/project/xdqi/dpainterlite)
 
 DPainter Lite is a simple CLI painter.
 

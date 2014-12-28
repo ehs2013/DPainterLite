@@ -42,10 +42,12 @@
     <NuGetPackageImportStamp>7eee1395</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\external\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)external\rapidjson\include;$(SolutionDir)external\ege\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)external\ege\lib;$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\external\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)external\rapidjson\include;$(SolutionDir)external\ege\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)external\ege\lib;$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
