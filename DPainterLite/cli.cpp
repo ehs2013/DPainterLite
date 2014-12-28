@@ -145,7 +145,11 @@ void draw_line(void) {
 	printf("\nInput the end point place: ");
 	scanf("%d %d", &x2, &y2);
 	getchar();
-	PLINE newline = new LINE{ x1, y1, x2, y2, BLUE };
+	printf("\nPress Enter to select a color for drawing.\n");
+	getchar();
+	color_t color = get_color();
+	printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(color), EGEGET_G(color), EGEGET_B(color));
+	PLINE newline = new LINE{ x1, y1, x2, y2, color };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
 	draw(shapes.back());
 	printf("Length: %d", shapes.size());
