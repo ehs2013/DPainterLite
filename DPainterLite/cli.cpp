@@ -78,6 +78,7 @@ void open_file(void) {
 	SetConsoleTitle(title);
 	initpad();
 	readjson();
+	delay_ms(0);
 	do_file();
 }
 
@@ -155,7 +156,7 @@ void draw_line(void) {
 	PLINE newline = new LINE{ x1, y1, x2, y2, width, color };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
 	draw(newline);
-	delay_fps(1000);
+	delay_ms(0);
 	printf("\nA line drawed from (%d, %d) to (%d, %d).\n\n", x1, y1, x2, y2);
 }
 
@@ -206,7 +207,7 @@ void draw_circle(void) {
 	PCIRCLE newcircle = new CIRCLE{ x, y, r, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_CIRCLE, newcircle });
 	draw(newcircle);
-	delay_fps(1000);
+	delay_ms(0);
 	printf("A circle drawed.\n");
 }
 
@@ -256,7 +257,7 @@ void draw_ellipse(void) {
 	PELLIPSE newellipse = new ELLIPSE{ x, y, xr, yr, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_ELLIPSE, newellipse });
 	draw(newellipse);
-	delay_fps(1000);
+	delay_ms(0);
 	printf("An ellipse drawed.\n");
 }
 
@@ -306,7 +307,7 @@ void draw_rectangle(void) {
 	PRECTANGLE newrectangle = new RECTANGLE{ l, t, r, b, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_RECTANGLE, newrectangle });
 	draw(newrectangle);
-	delay_fps(1000);
+	delay_ms(0);
 	printf("A rectangle drawed.\n");
 }
 
@@ -373,7 +374,7 @@ void draw_polygon(void) {
 	PPOLYGON newpolygon = new POLYGON{ points, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_POLYGON, newpolygon });
 	draw(newpolygon);
-	delay_fps(1000);
+	delay_ms(0);
 	printf("A polygon drawed.\n");
 }
 
