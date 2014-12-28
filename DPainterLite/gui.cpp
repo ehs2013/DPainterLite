@@ -16,3 +16,24 @@ void initpad(void) {
 	setfillcolor(BLUE);
 	SetForegroundWindow(GetConsoleWindow());
 }
+
+void get_coordinate(int &x, int &y, bool* stop) {
+	SetForegroundWindow(getHWnd());
+	mouse_msg c;
+	while (true) {
+		c = getmouse();
+		if (c.is_left() && c.is_down()) {
+			x = c.x;
+			y = c.y;
+			if (stop != NULL) {
+				*stop = false;
+			}
+			SetForegroundWindow(GetConsoleWindow());
+			return;
+		} else if (c.is_right() && c.is_down() && (stop != NULL)) {
+			*stop = true;
+			SetForegroundWindow(GetConsoleWindow());
+			return;
+		}
+	}
+}

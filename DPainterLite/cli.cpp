@@ -139,13 +139,11 @@ int file_operation_select(void) {
 
 void draw_line(void) {
 	int x1, y1;
-	printf("Input the start point place: ");
-	scanf("%d %d", &x1, &y1);
-	getchar();
+	printf("Click on the start point.\n");
+	get_coordinate(x1, y1);
 	int x2, y2;
-	printf("\nInput the end point place: ");
-	scanf("%d %d", &x2, &y2);
-	getchar();
+	printf("\nClick on the end point place.\n");
+	get_coordinate(x2, y2);
 	printf("\nPress Enter to select a color for drawing.\n");
 	getchar();
 	color_t color = get_color();
@@ -162,17 +160,16 @@ void draw_line(void) {
 
 void draw_circle(void) {
 	int x, y;
-	printf("\nInput the heart of circle: ");
-	scanf("%d %d", &x, &y);
-	getchar();
+	printf("\nClick on the center of circle.\n");
+	get_coordinate(x, y);
 	int r;
-	printf("\nInput the radius of the circle: ");
+	printf("\nInput the radius of the circle.\n");
 	scanf("%d", &r);
 	getchar();
 	int drawmode = 0x0;
 	printf("\nInput b for drawing a border, f for filling only, a for drawing border and filling: ");
+	fflush(stdin);
 	char draw_border = (char)getchar();
-	getchar();
 	color_t border = 0;
 	color_t fill = 0;
 	int borderwidth = 1;
@@ -213,17 +210,16 @@ void draw_circle(void) {
 
 void draw_ellipse(void) {
 	int x, y;
-	printf("\nInput the heart of ellipse: ");
-	scanf("%d %d", &x, &y);
-	getchar();
+	printf("\nClick on the heart of ellipse.\n");
+	get_coordinate(x, y);
 	int xr, yr;
-	printf("\nInput the X and Y radiuses of the ellipse: ");
+	printf("\nInput the X and Y radiuses of the ellipse.\n");
 	scanf("%d %d", &xr, &yr);
 	getchar();
 	int drawmode = 0x0;
 	printf("\nInput b for drawing a border, f for filling only, a for drawing border and filling: ");
+	fflush(stdin);
 	char draw_border = (char)getchar();
-	getchar();
 	color_t border = 0;
 	color_t fill = 0;
 	int borderwidth = 1;
@@ -263,17 +259,15 @@ void draw_ellipse(void) {
 
 void draw_rectangle(void) {
 	int l, t;
-	printf("\nInput the left-top point of the rectangle: ");
-	scanf("%d %d", &l, &t);
-	getchar();
+	printf("\nClick on the left-top point of the rectangle.\n");
+	get_coordinate(l, t);
 	int r, b;
-	printf("\nInput the right-buttom point of the rectangle: ");
-	scanf("%d %d", &r, &b);
-	getchar();
+	printf("\nClick on the right-buttom point of the rectangle.\n");
+	get_coordinate(r, b);
 	int drawmode = 0x0;
 	printf("\nInput b for drawing a border, f for filling only, a for drawing border and filling: ");
+	fflush(stdin);
 	char draw_border = (char)getchar();
-	getchar();
 	color_t border = 0;
 	color_t fill = 0;
 	int borderwidth = 1;
@@ -312,34 +306,27 @@ void draw_rectangle(void) {
 }
 
 void draw_polygon(void) {
-	bool drawing = true;
+	bool stop = false;
 	int point_no = 0;
 	std::vector<std::pair<int, int>> points;
-	while (drawing) {
+	while (!stop) {
 		int p1, p2;
-		char tmps[20];
-		printf("Input the point %d: ", point_no+1);
-		fflush(stdin);
-		fgets(tmps, 20, stdin);
-		int input_nums = sscanf(tmps, "%d %d\n", &p1, &p2);
-		if ((input_nums == -1) && (point_no < 3)) {
+		printf("Click on the point %d.\n", point_no+1);
+		printf("Right click to stop.\n");
+		get_coordinate(p1, p2, &stop);
+		if ((point_no < 3) && (stop == true)) {
 			printf("Only %d points, not enough to build even a triangle!\n", point_no);
 			printf("Please input more.\n");
-			continue;
-		} else if (input_nums == -1) {
-			printf("You entered %d points.\n", point_no);
-			break;
-		} else if (input_nums < 2) {
-			printf("Input Error, please re-input.\n");
-			continue;
-		} else if (input_nums == 2) {
+			stop = false;
+		} else {
 			points.push_back(std::pair<int, int>(p1, p2));
 			point_no += 1;
 		}
 	}
 	int drawmode = 0x0;
 	printf("\nInput b for drawing a border, f for filling only, a for drawing border and filling: ");
-	char draw_border = (char)getchar();
+	fflush(stdin);
+	char draw_border = getchar();
 	getchar();
 	color_t border = 0;
 	color_t fill = 0;
