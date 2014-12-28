@@ -3,6 +3,7 @@
 void draw(CIRCLE _circle) {
 	if (_circle.drawmode & BORDER) {
 		setcolor(_circle.bordercolor);
+		setlinestyle(SOLID_LINE, NULL, _circle.borderwidth);
 		circle(_circle.x, _circle.y, _circle.radius);
 	}
 	if (_circle.drawmode & FILL) {
@@ -14,6 +15,7 @@ void draw(CIRCLE _circle) {
 void draw(RECTANGLE _rectangle) {
 	if (_rectangle.drawmode & BORDER) {
 		setcolor(_rectangle.bordercolor);
+		setlinestyle(SOLID_LINE, NULL, _rectangle.borderwidth);
 		rectangle(_rectangle.left, _rectangle.top, _rectangle.right, _rectangle.bottom);
 	}
 	if (_rectangle.drawmode & FILL) {
@@ -25,6 +27,7 @@ void draw(RECTANGLE _rectangle) {
 void draw(ELLIPSE _ellipse) {
 	if (_ellipse.drawmode & BORDER) {
 		setcolor(_ellipse.bordercolor);
+		setlinestyle(SOLID_LINE, NULL, _ellipse.borderwidth);
 		ellipse(_ellipse.x, _ellipse.y, 0, 0, _ellipse.xradius, _ellipse.yradius);
 	}
 	if (_ellipse.drawmode & FILL) {
@@ -36,6 +39,7 @@ void draw(ELLIPSE _ellipse) {
 void draw(LINE _line) {
 	setcolor(_line.color);
 	setfillcolor(_line.color);
+	setlinestyle(SOLID_LINE, NULL, _line.width);
 	line(_line.x1, _line.y1, _line.x2, _line.y2);
 }
 
@@ -50,6 +54,7 @@ void draw(POLYGON _polygon) {
 	polypoints[_polygon.points.size() * 2 + 1] = _polygon.points[0].second;
 	if (_polygon.drawmode & BORDER) {
 		setcolor(_polygon.bordercolor);
+		setlinestyle(SOLID_LINE, NULL, _polygon.borderwidth);
 		drawpoly(numpoints, polypoints);
 	}
 	if (_polygon.drawmode & FILL) {

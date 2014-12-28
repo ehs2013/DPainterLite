@@ -149,7 +149,10 @@ void draw_line(void) {
 	getchar();
 	color_t color = get_color();
 	printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(color), EGEGET_G(color), EGEGET_B(color));
-	PLINE newline = new LINE{ x1, y1, x2, y2, color };
+	int width;
+	printf("Input the line width: ");
+	scanf("%d", &width);
+	PLINE newline = new LINE{ x1, y1, x2, y2, width, color };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
 	draw(newline);
 	printf("Length: %d", shapes.size());
@@ -172,12 +175,15 @@ void draw_circle(void) {
 	getchar();
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (draw_border == 'b') {
 		printf("\nPress Enter to select a color for drawing border.\n");
  		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
 		drawmode = BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	} else if (draw_border == 'f') {
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
@@ -189,13 +195,16 @@ void draw_circle(void) {
 		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
 		fill = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(fill), EGEGET_G(fill), EGEGET_B(fill));
 		drawmode = FILL | BORDER;
+
 	}
-	PCIRCLE newcircle = new CIRCLE{ x, y, r, drawmode, border, fill };
+	PCIRCLE newcircle = new CIRCLE{ x, y, r, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_CIRCLE, newcircle });
 	draw(newcircle);
 	printf("Length: %d\n", shapes.size());
@@ -218,12 +227,15 @@ void draw_ellipse(void) {
 	getchar();
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (draw_border == 'b') {
 		printf("\nPress Enter to select a color for drawing border.\n");
 		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
 		drawmode = BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	} else if (draw_border == 'f') {
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
@@ -235,13 +247,15 @@ void draw_ellipse(void) {
 		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
 		fill = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(fill), EGEGET_G(fill), EGEGET_B(fill));
 		drawmode = FILL | BORDER;
 	}
-	PELLIPSE newellipse = new ELLIPSE{ x, y, xr, yr, drawmode, border, fill };
+	PELLIPSE newellipse = new ELLIPSE{ x, y, xr, yr, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_ELLIPSE, newellipse });
 	draw(newellipse);
 	printf("Length: %d\n", shapes.size());
@@ -264,12 +278,15 @@ void draw_rectangle(void) {
 	getchar();
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (draw_border == 'b') {
 		printf("\nPress Enter to select a color for drawing border.\n");
 		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
 		drawmode = BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	} else if (draw_border == 'f') {
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
@@ -286,8 +303,10 @@ void draw_rectangle(void) {
 		fill = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(fill), EGEGET_G(fill), EGEGET_B(fill));
 		drawmode = FILL | BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	}
-	PRECTANGLE newrectangle = new RECTANGLE{ l, t, r, b, drawmode, border, fill };
+	PRECTANGLE newrectangle = new RECTANGLE{ l, t, r, b, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_RECTANGLE, newrectangle });
 	draw(newrectangle);
 	printf("Length: %d\n", shapes.size());
@@ -327,12 +346,15 @@ void draw_polygon(void) {
 	getchar();
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (draw_border == 'b') {
 		printf("\nPress Enter to select a color for drawing border.\n");
 		getchar();
 		border = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(border), EGEGET_G(border), EGEGET_B(border));
 		drawmode = BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	} else if (draw_border == 'f') {
 		printf("\nPress Enter to select a color for filling.\n");
 		getchar();
@@ -349,8 +371,10 @@ void draw_polygon(void) {
 		fill = get_color();
 		printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(fill), EGEGET_G(fill), EGEGET_B(fill));
 		drawmode = FILL | BORDER;
+		printf("Input the border width: ");
+		scanf("%d", &borderwidth);
 	}
-	PPOLYGON newpolygon = new POLYGON{ points, drawmode, border, fill };
+	PPOLYGON newpolygon = new POLYGON{ points, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_POLYGON, newpolygon });
 	draw(newpolygon);
 	printf("Length: %d\n", shapes.size());

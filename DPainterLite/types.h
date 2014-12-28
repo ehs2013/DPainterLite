@@ -17,6 +17,7 @@ typedef struct {
 	int y;
 	int radius;
 	int drawmode;
+	int borderwidth;
 	color_t bordercolor;
 	color_t fillcolor;
 } CIRCLE;
@@ -28,6 +29,7 @@ typedef struct {
 	int right;
 	int bottom;
 	int drawmode;
+	int borderwidth;
 	color_t bordercolor;
 	color_t fillcolor;
 } RECTANGLE;
@@ -39,6 +41,7 @@ typedef struct {
 	int xradius;
 	int yradius;
 	int drawmode;
+	int borderwidth;
 	color_t bordercolor;
 	color_t fillcolor;
 } ELLIPSE;
@@ -49,6 +52,7 @@ typedef struct {
 	int y1;
 	int x2;
 	int y2;
+	int width;
 	color_t color;
 } LINE;
 typedef LINE *PLINE;
@@ -62,6 +66,7 @@ typedef SHAPE *PSHAPE;
 typedef struct {
 	std::vector<std::pair<int, int>> points;
 	int drawmode;
+	int borderwidth;
 	color_t bordercolor;
 	color_t fillcolor;
 } POLYGON;

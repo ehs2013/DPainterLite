@@ -19,6 +19,7 @@ void writejson(LINE _line) {
 	color.AddMember("R", EGEGET_R(_line.color), fileallocator);
 	color.AddMember("G", EGEGET_G(_line.color), fileallocator);
 	color.AddMember("B", EGEGET_B(_line.color), fileallocator);
+	info.AddMember("width", _line.width, fileallocator);
 	info.AddMember("color", color, fileallocator);
 	jsonline.AddMember("detail", info, fileallocator);
 	all_shapes.PushBack(jsonline, fileallocator);
@@ -40,6 +41,7 @@ void writejson(CIRCLE _circle) {
 	border_color.AddMember("G", EGEGET_G(_circle.bordercolor), fileallocator);
 	border_color.AddMember("B", EGEGET_B(_circle.bordercolor), fileallocator);
 	if (border_enabled) {
+		border.AddMember("width", _circle.borderwidth, fileallocator);
 		border.AddMember("color", border_color, fileallocator);
 	}
 	rapidjson::Value fill(rapidjson::kObjectType);
@@ -75,6 +77,7 @@ void writejson(RECTANGLE _rectangle) {
 	border_color.AddMember("G", EGEGET_G(_rectangle.bordercolor), fileallocator);
 	border_color.AddMember("B", EGEGET_B(_rectangle.bordercolor), fileallocator);
 	if (border_enabled) {
+		border.AddMember("width", _rectangle.borderwidth, fileallocator);
 		border.AddMember("color", border_color, fileallocator);
 	}
 	rapidjson::Value fill(rapidjson::kObjectType);
@@ -110,6 +113,7 @@ void writejson(ELLIPSE _ellipse) {
 	border_color.AddMember("G", EGEGET_G(_ellipse.bordercolor), fileallocator);
 	border_color.AddMember("B", EGEGET_B(_ellipse.bordercolor), fileallocator);
 	if (border_enabled) {
+		border.AddMember("width", _ellipse.borderwidth, fileallocator);
 		border.AddMember("color", border_color, fileallocator);
 	}
 	rapidjson::Value fill(rapidjson::kObjectType);
@@ -150,6 +154,7 @@ void writejson(POLYGON _polygon) {
 	border_color.AddMember("G", EGEGET_G(_polygon.bordercolor), fileallocator);
 	border_color.AddMember("B", EGEGET_B(_polygon.bordercolor), fileallocator);
 	if (border_enabled) {
+		border.AddMember("width", _polygon.borderwidth, fileallocator);
 		border.AddMember("color", border_color, fileallocator);
 	}
 	rapidjson::Value fill(rapidjson::kObjectType);
@@ -218,7 +223,7 @@ void writejson(PSHAPE _pshape) {
 void finalwrite(void) {
 	rapidjson::Document::AllocatorType& fileallocator = jsonfile.GetAllocator();
 	jsonfile.AddMember("creator", "DPainter Lite", fileallocator);
-	jsonfile.AddMember("version", 1.0, fileallocator);
+	jsonfile.AddMember("version", 1.1, fileallocator);
 	jsonfile.AddMember("shapes", all_shapes, fileallocator);
 	rapidjson::StringBuffer buffer;
 	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
@@ -271,21 +276,29 @@ void readcircle(rapidjson::Value& _circle) {
 	int drawmode = 0x0;
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (_circle["border"]["enabled"].GetBool()) {
 		drawmode |= BORDER;
 		border = EGERGB(_circle["border"]["color"]["R"].GetInt(), _circle["border"]["color"]["G"].GetInt(), _circle["border"]["color"]["B"].GetInt());
+		if (_circle["border"].HasMember("width")) { // Version 1.0 Compability
+			borderwidth = _circle["border"]["width"].GetInt();
+		} 
 	}
 	if (_circle["fill"]["enabled"].GetBool()) {
 		drawmode |= FILL;
 		fill = EGERGB(_circle["fill"]["color"]["R"].GetInt(), _circle["fill"]["color"]["G"].GetInt(), _circle["fill"]["color"]["B"].GetInt());
 	}
-	PCIRCLE newcircle = new CIRCLE{ _circle["x"].GetInt(), _circle["y"].GetInt(), _circle["radius"].GetInt(), drawmode, border, fill };
+	PCIRCLE newcircle = new CIRCLE{ _circle["x"].GetInt(), _circle["y"].GetInt(), _circle["radius"].GetInt(), drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_CIRCLE, newcircle });
 	draw(newcircle);
 }
 
 void readline(rapidjson::Value& _line) {
-	PLINE newline = new LINE{ _line["x1"].GetInt(), _line["y1"].GetInt(), _line["x2"].GetInt(), _line["y2"].GetInt(), EGERGB(_line["color"]["R"].GetInt(), _line["color"]["G"].GetInt(), _line["color"]["B"].GetInt()) };
+	int width = 1;
+	if (_line.HasMember("width")) {
+		width = _line["width"].GetInt();
+	}
+	PLINE newline = new LINE{ _line["x1"].GetInt(), _line["y1"].GetInt(), _line["x2"].GetInt(), _line["y2"].GetInt(), width, EGERGB(_line["color"]["R"].GetInt(), _line["color"]["G"].GetInt(), _line["color"]["B"].GetInt()) };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
 	draw(newline);
 }
@@ -294,15 +307,19 @@ void readrectangle(rapidjson::Value& _rectangle) {
 	int drawmode = 0x0;
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (_rectangle["border"]["enabled"].GetBool()) {
 		drawmode |= BORDER;
 		border = EGERGB(_rectangle["border"]["color"]["R"].GetInt(), _rectangle["border"]["color"]["G"].GetInt(), _rectangle["border"]["color"]["B"].GetInt());
+		if (_rectangle["border"].HasMember("width")) { // Version 1.0 Compability
+			borderwidth = _rectangle["border"]["width"].GetInt();
+		}
 	}
 	if (_rectangle["fill"]["enabled"].GetBool()) {
 		drawmode |= FILL;
 		fill = EGERGB(_rectangle["fill"]["color"]["R"].GetInt(), _rectangle["fill"]["color"]["G"].GetInt(), _rectangle["fill"]["color"]["B"].GetInt());
 	}
-	PRECTANGLE newrectangle = new RECTANGLE{ _rectangle["left"].GetInt(), _rectangle["top"].GetInt(), _rectangle["right"].GetInt(), _rectangle["bottom"].GetInt(), drawmode, border, fill };
+	PRECTANGLE newrectangle = new RECTANGLE{ _rectangle["left"].GetInt(), _rectangle["top"].GetInt(), _rectangle["right"].GetInt(), _rectangle["bottom"].GetInt(), drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_RECTANGLE, newrectangle });
 	draw(newrectangle);
 }
@@ -311,15 +328,19 @@ void readellipse(rapidjson::Value& _ellipse) {
 	int drawmode = 0x0;
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (_ellipse["border"]["enabled"].GetBool()) {
 		drawmode |= BORDER;
 		border = EGERGB(_ellipse["border"]["color"]["R"].GetInt(), _ellipse["border"]["color"]["G"].GetInt(), _ellipse["border"]["color"]["B"].GetInt());
+		if (_ellipse["border"].HasMember("width")) { // Version 1.0 Compability
+			borderwidth = _ellipse["border"]["width"].GetInt();
+		}
 	}
 	if (_ellipse["fill"]["enabled"].GetBool()) {
 		drawmode |= FILL;
 		fill = EGERGB(_ellipse["fill"]["color"]["R"].GetInt(), _ellipse["fill"]["color"]["G"].GetInt(), _ellipse["fill"]["color"]["B"].GetInt());
 	}
-	PELLIPSE newellipse = new ELLIPSE{ _ellipse["x"].GetInt(), _ellipse["y"].GetInt(), _ellipse["xradius"].GetInt(), _ellipse["yradius"].GetInt(), drawmode, border, fill };
+	PELLIPSE newellipse = new ELLIPSE{ _ellipse["x"].GetInt(), _ellipse["y"].GetInt(), _ellipse["xradius"].GetInt(), _ellipse["yradius"].GetInt(), drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_ELLIPSE, newellipse });
 	draw(newellipse);
 }
@@ -328,9 +349,13 @@ void readpolygon(rapidjson::Value& _polygon) {
 	int drawmode = 0x0;
 	color_t border = 0;
 	color_t fill = 0;
+	int borderwidth = 1;
 	if (_polygon["border"]["enabled"].GetBool()) {
 		drawmode |= BORDER;
 		border = EGERGB(_polygon["border"]["color"]["R"].GetInt(), _polygon["border"]["color"]["G"].GetInt(), _polygon["border"]["color"]["B"].GetInt());
+		if (_polygon["border"].HasMember("width")) { // Version 1.0 Compability
+			borderwidth = _polygon["border"]["width"].GetInt();
+		}
 	}
 	if (_polygon["fill"]["enabled"].GetBool()) {
 		drawmode |= FILL;
@@ -340,7 +365,7 @@ void readpolygon(rapidjson::Value& _polygon) {
 	for (rapidjson::SizeType i = 0; i < _polygon["points"].Size(); i++) {
 		points.push_back(std::pair<int, int>(_polygon["points"][i]["x"].GetInt(), _polygon["points"][i]["y"].GetInt()));
 	}
-	PPOLYGON newpolygon = new POLYGON{ points, drawmode, border, fill };
+	PPOLYGON newpolygon = new POLYGON{ points, drawmode, borderwidth, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_POLYGON, newpolygon });
 	draw(newpolygon);
 }
