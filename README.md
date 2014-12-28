@@ -2,15 +2,18 @@
 
 DPainter Lite is a simple CLI painter.
 
-# Build
+## Build
 
-## Visual Studio 2013
+### Visual Studio 2013
 Open `DPainterLite.sln` to build and debug.
 
-## MinGW (MSYS)
-Run `make` in this folder and you will get `DPainterLite.exe` right here.
+### MinGW (MSYS)
+Run `make` in this folder and you will get `DPainterLite.exe` here in this folder.
 
-# TODO
+### Clang (LLVM)
+Run `make clang` in this folder and you will get `DPainterLite.exe` here in this folder.
+
+## TODO
 
 - [ ] Error handling with input
 - [x] Makefile support
