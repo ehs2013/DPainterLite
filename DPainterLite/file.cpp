@@ -281,13 +281,13 @@ void readcircle(rapidjson::Value& _circle) {
 	}
 	PCIRCLE newcircle = new CIRCLE{ _circle["x"].GetInt(), _circle["y"].GetInt(), _circle["radius"].GetInt(), drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_CIRCLE, newcircle });
-	draw(shapes.back());
+	draw(newcircle);
 }
 
 void readline(rapidjson::Value& _line) {
 	PLINE newline = new LINE{ _line["x1"].GetInt(), _line["y1"].GetInt(), _line["x2"].GetInt(), _line["y2"].GetInt(), EGERGB(_line["color"]["R"].GetInt(), _line["color"]["G"].GetInt(), _line["color"]["B"].GetInt()) };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
-	draw(shapes.back());
+	draw(newline);
 }
 
 void readrectangle(rapidjson::Value& _rectangle) {
@@ -304,7 +304,7 @@ void readrectangle(rapidjson::Value& _rectangle) {
 	}
 	PRECTANGLE newrectangle = new RECTANGLE{ _rectangle["left"].GetInt(), _rectangle["top"].GetInt(), _rectangle["right"].GetInt(), _rectangle["bottom"].GetInt(), drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_RECTANGLE, newrectangle });
-	draw(shapes.back());
+	draw(newrectangle);
 }
 
 void readellipse(rapidjson::Value& _ellipse) {
@@ -321,7 +321,7 @@ void readellipse(rapidjson::Value& _ellipse) {
 	}
 	PELLIPSE newellipse = new ELLIPSE{ _ellipse["x"].GetInt(), _ellipse["y"].GetInt(), _ellipse["xradius"].GetInt(), _ellipse["yradius"].GetInt(), drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_ELLIPSE, newellipse });
-	draw(shapes.back());
+	draw(newellipse);
 }
 
 void readpolygon(rapidjson::Value& _polygon) {
@@ -342,5 +342,5 @@ void readpolygon(rapidjson::Value& _polygon) {
 	}
 	PPOLYGON newpolygon = new POLYGON{ points, drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_POLYGON, newpolygon });
-	draw(shapes.back());
+	draw(newpolygon);
 }

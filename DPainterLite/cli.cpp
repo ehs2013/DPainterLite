@@ -151,7 +151,7 @@ void draw_line(void) {
 	printf("You selected a color which RGB value is (%d, %d, %d).\n", EGEGET_R(color), EGEGET_G(color), EGEGET_B(color));
 	PLINE newline = new LINE{ x1, y1, x2, y2, color };
 	shapes.push_back(SHAPE{ SHAPE_LINE, newline });
-	draw(shapes.back());
+	draw(newline);
 	printf("Length: %d", shapes.size());
 	delay_fps(1000);
 	printf("\nA line drawed from (%d, %d) to (%d, %d).\n\n", x1, y1, x2, y2);
@@ -197,7 +197,7 @@ void draw_circle(void) {
 	}
 	PCIRCLE newcircle = new CIRCLE{ x, y, r, drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_CIRCLE, newcircle });
-	draw(shapes.back());
+	draw(newcircle);
 	printf("Length: %d\n", shapes.size());
 	delay_fps(1000);
 	printf("A circle drawed.\n");
@@ -243,7 +243,7 @@ void draw_ellipse(void) {
 	}
 	PELLIPSE newellipse = new ELLIPSE{ x, y, xr, yr, drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_ELLIPSE, newellipse });
-	draw(shapes.back());
+	draw(newellipse);
 	printf("Length: %d\n", shapes.size());
 	delay_fps(1000);
 	printf("An ellipse drawed.\n");
@@ -289,7 +289,7 @@ void draw_rectangle(void) {
 	}
 	PRECTANGLE newrectangle = new RECTANGLE{ l, t, r, b, drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_RECTANGLE, newrectangle });
-	draw(shapes.back());
+	draw(newrectangle);
 	printf("Length: %d\n", shapes.size());
 	delay_fps(1000);
 	printf("A rectangle drawed.\n");
@@ -352,7 +352,7 @@ void draw_polygon(void) {
 	}
 	PPOLYGON newpolygon = new POLYGON{ points, drawmode, border, fill };
 	shapes.push_back(SHAPE{ SHAPE_POLYGON, newpolygon });
-	draw(shapes.back());
+	draw(newpolygon);
 	printf("Length: %d\n", shapes.size());
 	delay_fps(1000);
 	printf("A polygon drawed.\n");
