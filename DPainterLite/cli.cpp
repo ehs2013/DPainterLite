@@ -83,8 +83,9 @@ void open_file(void) {
 }
 
 void show_copyright(void) {
-	printf("DPainter Lite\n");
-	printf("Copyright (C) 2014-2015 Qi Xiaodong\n");
+	char * name = "DPainter Lite";
+	char * copyright = "Copyright (C) 2014-2015 Qi Xiaodong";
+	ShellAboutA(GetConsoleWindow(), name, copyright, NULL);
 }
 
 void do_file(void) {
